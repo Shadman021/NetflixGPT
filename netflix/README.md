@@ -15,9 +15,12 @@ If you are developing a production application, we recommend using TypeScript wi
 - Create React-Vite App.
 - Configured TailwindCSS.
 - Configured Git.
+- Routing of App
 - Header
 - login form
 - Sign up Form
+- Form Validation
+- useRef Hook
 
 # Features
 - Login/Sign Up
