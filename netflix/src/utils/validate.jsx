@@ -11,5 +11,5 @@ export const checkValidData = (email, password, name) => {
     if(!isPasswordValid) return "Password not valid";
     
 
-    return "clear";
+    return null;
 }

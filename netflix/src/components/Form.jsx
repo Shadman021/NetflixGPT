@@ -1,26 +1,89 @@
 import React, { useState, useRef } from 'react'
 import { checkValidData } from '../utils/validate';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from '../utils/firebase';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../utils/userSlice';
 
 const Form = () => {
 
+    const dispatch = useDispatch();
     const name = useRef(null);
     const email = useRef(null);
     const password = useRef(null);
+    const navigate = useNavigate();
 
     const [errorMessage, setErrorMessage] = useState(null);
 
     const handleSubmitClick = () => {
-        const message = checkValidData(email.current.value, password.current.value, name.current.value);
+        const message = checkValidData(email.current.value, password.current.value);
         setErrorMessage(message);
 
-        if (message === "clear") {
-            email.current.value = "";
-            password.current.value = "";
-            name.current.value = "";
-        }
+        if (message) return;
 
-        // console.log(email.current.value);
-        // console.log(password.current.value);
+        if (!isSignInForm) {
+
+            //......Sign Up Logic......
+            createUserWithEmailAndPassword(
+                auth,
+                email.current.value,
+                password.current.value)
+
+                .then((userCredential) => {
+
+                    // ......Signed up...... 
+                    const user = userCredential.user;
+                    updateProfile(auth.currentUser, {
+                        displayName: name.current.value,
+                    }).then(() => {
+                         const { uid, email, displayName } = auth.currentUser;
+
+                        dispatch(
+                            addUser({
+                            uid: uid,
+                            email: email,
+                            displayName: displayName,
+                        }))
+                        navigate('/browse');
+                    }).catch((error) => {
+                        navigate('/error')
+                    });
+
+
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setErrorMessage(errorCode + " " + errorMessage);
+                    navigate('/')
+                });
+
+        } else {
+            //......Sign In Logic......
+            signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+                .then((userCredential) => {
+                    // ......Signed in......
+                    const user = userCredential.user;
+                    console.log(user);
+                    navigate("/browse")
+
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    let message = "";
+                    // ........setting customized error message.......
+                    if ("auth/invalid-credential") {
+
+                        message = "Invalid email or password.";
+
+                    } else {
+                        message = "Login failed. Please try again.";
+                    }
+                    setErrorMessage(message);
+                });
+        }
     }
 
     const [isSignInForm, setIsSignInForm] = useState(true);
@@ -58,7 +121,7 @@ const Form = () => {
             </input>
             {errorMessage !== "clear" ?
                 (<p className='text-lg text-red-600'>{errorMessage}</p>)
-                 :
+                :
                 (<p className='text-lg text-green-600'>Submitted</p>)
             }
 
