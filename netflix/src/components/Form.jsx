@@ -44,8 +44,7 @@ const Form = () => {
                             uid: uid,
                             email: email,
                             displayName: displayName,
-                        }))
-                        navigate('/browse');
+                        }));
                     }).catch((error) => {
                         navigate('/error')
                     });
@@ -65,9 +64,6 @@ const Form = () => {
                 .then((userCredential) => {
                     // ......Signed in......
                     const user = userCredential.user;
-                    console.log(user);
-                    navigate("/browse")
-
                 })
                 .catch((error) => {
                     const errorCode = error.code;

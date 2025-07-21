@@ -1,35 +1,62 @@
-import { signOut } from 'firebase/auth';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addUser, removeUser } from '../utils/userSlice';
+import { useEffect } from 'react';
+import { LOGO } from '../utils/constant';
+import { UserImg } from '../utils/constant';
 
 const Header = () => {
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
 
-  const handleSignOut = () =>{
-  signOut(auth).then(() => {
-  // ......Sign-out......
-  navigate("/")
-}).catch((error) => {
-  // ......An error happened.......
-  navigate("/error")
-});
-}
+  const handleSignOut = () => {
+    signOut(auth).then(() => {
+      // ......Sign-out......
+
+      // from the onAuthStateChange function
+    }).catch((error) => {
+      // ......An error happened.......
+      navigate("/error")
+    });
+  }
+
+  useEffect(() => {
+   const unsubscribe= onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName } = user;
+
+        dispatch(addUser({
+          uid: uid,
+          email: email,
+          displayName: displayName,
+        }));
+        navigate("/browse")
+      } else {
+        // User is signed out
+        dispatch(removeUser());
+        navigate('/')
+      }
+    });
+
+    //unsubcribe when components unmounts
+    return ()=> unsubscribe();
+  }, [])
 
   return (
-    <div className='w-[100%] bg-gradient-to-b from-black px-[10rem] py-[1rem] flex justify-between'>
-      <img className="w-44 " src='https://help.nflxext.com/helpcenter/OneTrust/oneTrust_production_2025-07-14/consent/87b6a5c0-0104-4e96-a291-092c11350111/01938dc4-59b3-7bbc-b635-c4131030e85f/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png' alt='logo' />
+    <div className=' absolute w-[100%] bg-gradient-to-b from-black px-[5rem] py-[2rem] flex justify-between z-50'>
+      <img className="w-44 " src={LOGO} alt='logo' />
 
       {user && <div>
-        <img 
-        className='h-10 w-10 m-auto'
-        src="https://pbs.twimg.com/media/Dj7pdk_XoAEWZ9f.jpg" 
-        alt='userIcon' />
-        <button 
-        className='font-bold text-lg text-white cursor-pointer'
-        onClick={handleSignOut}
+        <img
+          className='h-10 w-10 m-auto'
+          src= {UserImg}
+          alt='userIcon' />
+        <button
+          className='font-bold text-lg text-white cursor-pointer'
+          onClick={handleSignOut}
         >SignOut</button>
       </div>}
     </div>

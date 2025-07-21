@@ -29,6 +29,19 @@ If you are developing a production application, we recommend using TypeScript wi
 - Implemented Sign out feature
 - update profive with user data
 - fetch movies form TMDB movies
+- 1st BugFix: SignUp user displayName
+- 2nd BugFix: If the user is not logedIn redirect it to login page on "/browse" and Vice-Versa
+- Hygiene Practice: Unsubscribe to the onAuthStateChange callback.
+- Hygine Practice: Use constant (constant.jsx) file.
+- Register TMDB API & create an app & got access token
+- Get Data from TMDB nowPlaying movies list API
+- Created MovieSlice
+- Update Store with movies Data
+- Planning for MainContainer & secondaryContainer
+- Fetch Data for Trailer Video
+- Update Store with trailer video data
+- Embaded YouTube video(Trailer) and made it autoplay and mute.
+- Tailwind classes to make MainContainer look Better.
 
 # Features
 - Login/Sign Up

@@ -1,0 +1,9 @@
+1nd Bug - Sign Out btn was available on login page also.
+    Added dispatch(addUser) function inside my "createUserWithEmailAndPassword" funtion, So as soon as the user signUp the addUser fuction run and store the user displayName in store.
+
+2nd Bug - When a user sign out, still it can access browse page.
+    Shifted the "onAuthStateChanged" fuction from body component to header component, and gave the navigate access to to it, So that user can't move to browse page until the auth gets updated, and vice-versa.
+
+1st Hygiene Practice: Unsubscribe to the onAuthStateChange callback.
+
+2nd Hygine Practice: Use constant file (constant.jsx) to store all the link of images or any data.
