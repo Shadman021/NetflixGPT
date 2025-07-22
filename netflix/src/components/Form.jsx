@@ -86,13 +86,12 @@ const Form = () => {
 
     const handletoggle = () => {
         setIsSignInForm(!isSignInForm);
-        console.log(isSignInForm);
     }
 
     return (
 
         <form onSubmit={(e) => e.preventDefault()} className='bg-black/[80%] flex flex-col 
-        w-[400px] px-[3rem] py-[3rem] mx-auto rounded-2xl '>
+        w-[400px] p-[3rem] m-auto rounded-2xl fixed top-1/5 left-1/3'>
             <p className='text-3xl font-bold text-white'>{isSignInForm ? "Sign In" : "Sign Up"}</p>
 
             {!isSignInForm && (<input

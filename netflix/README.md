@@ -42,6 +42,7 @@ If you are developing a production application, we recommend using TypeScript wi
 - Update Store with trailer video data
 - Embaded YouTube video(Trailer) and made it autoplay and mute.
 - Tailwind classes to make MainContainer look Better.
+- Build SecondaryComponent
 
 # Features
 - Login/Sign Up

@@ -46,8 +46,8 @@ const Header = () => {
   }, [])
 
   return (
-    <div className=' absolute w-[100%] bg-gradient-to-b from-black px-[5rem] py-[2rem] flex justify-between z-50'>
-      <img className="w-44 " src={LOGO} alt='logo' />
+    <div className=' absolute w-[100%] bg-gradient-to-b from-black px-[3rem] py-[2rem] flex justify-between z-50'>
+      <img className="w-30 " src={LOGO} alt='logo' />
 
       {user && <div>
         <img
