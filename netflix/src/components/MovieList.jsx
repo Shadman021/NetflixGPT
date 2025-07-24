@@ -7,10 +7,10 @@ const MovieList = ({ title, movies }) => {
   }
 
   return (
-    <div className='px-[4.3rem] '>
+    <div className='px-[4rem] '>
       <h1 className='text-2xl py-3 text-white'>{title}</h1>
       <div className='flex overflow-x-scroll scrollbar-hidden'>
-        <div className='flex gap-[14px]'>
+        <div className='flex gap-[15px]'>
           {movies.map(movie => <MovieCards movie={movie} key={movie.id} />)}
         </div>
       </div>

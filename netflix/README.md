@@ -43,6 +43,13 @@ If you are developing a production application, we recommend using TypeScript wi
 - Embaded YouTube video(Trailer) and made it autoplay and mute.
 - Tailwind classes to make MainContainer look Better.
 - Build SecondaryComponent
+- Build MovieList
+- Build MovieCard
+- Found and Used TMDB image CDN URL
+- Created usePopularMovies, useTopRatedMovies, useUpcomingMovies custom hook
+- GPT search Page
+- GPT search Bar
+- ** Added Multi-language feature in our App
 
 # Features
 - Login/Sign Up

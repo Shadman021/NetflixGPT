@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 const SecondaryContainer = () => {
 
   const movies = useSelector(store=> store.movies);
-  console.log("movie data at SecondaryContainer: ",movies);
   
  if (!movies || !movies?.nowPlayingMovies || !movies?.popularMovies || !movies?.topRatedMovies || !movies?.upcomingMovies) {
     return <div>Loading...</div>;
