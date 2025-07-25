@@ -5,6 +5,8 @@ const GptSearchSlice = createSlice({
     initialState:{
         GptSearchView: false,
         langBtnVisible: false,
+        geminimovies: null,
+        moviesName: null,
     },
     reducers:{
         setGptSearch: (state)=>{
@@ -12,8 +14,14 @@ const GptSearchSlice = createSlice({
         },
         setLangBtnVisible: (state)=>{
             state.langBtnVisible = !state.langBtnVisible;
+        },
+        setGeminiMovies: (state, action)=>{
+            const {geminimovies, moviesName} = action.payload;
+            state.geminimovies = geminimovies;
+            state.moviesName = moviesName;
         }
+
     }
 })
-export const {setGptSearch, setLangBtnVisible} = GptSearchSlice.actions;
+export const {setGptSearch, setLangBtnVisible, setGeminiMovies} = GptSearchSlice.actions;
 export default GptSearchSlice.reducer;

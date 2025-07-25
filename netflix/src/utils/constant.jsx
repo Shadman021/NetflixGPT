@@ -19,3 +19,5 @@ export const SUPPORTED_LANG = [
   {identifier: "hin", name: "Hindi"},
   {identifier: "spa", name: "Spanish"},
 ]
+
+export const VITE_OPENAI_API_KEY = "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";
